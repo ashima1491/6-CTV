@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Scripts/script.js was used to sense the click of buttons -->
+<head>
+ 
+</head>
+<body >
+<!-- <body background="images/Carpet.jpg"> -->
+<div class = "container-fluid" style = "padding-bottom: 50px;  ">
+<?php
+include("Header.html");
+?>
+
+    <div id="results" title="Results">
+        <div id="resultss" title="Results">resultss
+            <p></p>
+        </div>
+    </div>
+
+    <div class="container-shadow" style = "min-height: 650px; width: 95%; margin:auto;
+    padding: 100px; padding-top: 25px;  
+-webkit-box-shadow: 0 0 6px 4px black;
+   -moz-box-shadow: 0 0 6px 4px black;
+        box-shadow: 0 0 16px 4px black;">
+		 <div id="spinner" class="spinner" style="display:none;">
+              
+                    Please wait, the analysis may last for 3 minutes.
+                    <div id="show_content">.</div>
+              
+         </div>
+        
+        <div class="body-content" style = "width: 1200px; margin: auto;">
+
+            <div id="step1" >
+                <div>
+                    <div id="single_compound" >
+                        <h2>Step 1</h2>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xsm-6" style="background-color:yellow;">
+								<div style="width:100%;">
+									<b>Enter compound name, </b>
+								</div><br>
+								<textarea rows="3" id="compoundNames" class="form-control" placeholder="Enter compound name OR SMILES OR CAS Registry Number" style="width:100%;"></textarea>
+                                
+                                
+                                <div style = "text-align:center;">
+                                	<button type="submit" id="compoundSearch" class="btn btn-default btn-primary">Search</button>
+                                </div>
+							</div>
+
+							<div class="col-md-6 col-sm-12"class="col-md-6 col-sm-12">
+                            
+								<div id="jsme_applet" class="row">
+									<div id="draw_structure" class="col-md-6">
+										<div id="jsme_container"></div>
+									</div>
+									<div class="col-md-6" style="line-height: 50%;">
+                                 		<button type="button" class="btn btn-customctv" onclick='getSmiles();'>Get SMILES</button>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="row" align="right">
+							
+						</div>
+                    </div>
+                    <div id="inputfile" style="display:none;">	// This div should not show
+                        <h2>Step 1</h2>			
+                        	<b>Upload a CSV file with a maximum of 10 smile strings. 
+                      
+                        <fieldset>
+                            <p></p>
+                            <form id="form1" >
+                            
+                            </form>
+                        </fieldset>
+                        <br>new
+                            <form id="form1" >
+                            	<input id="file" type="file" name="file" />
+                               <input type="submit" value="Open New..." />
+							</form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="step2" style="display:none; width: 900px; background-color:blue;">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="background-color:red;">
+                    <h2>Step 2</h2> 
+                    	<div id="ctvInfo">
+                    	</div>
+                    <div id="reset_check" style="display:none;">
+                            <a class="btn btn-default" id="reset_results">Reset</a>
+                    </div>
+
+                    <div id="select_check" style="display:none; width: 100%; ">
+                        <p align="right">
+                            <a class="btn btn-default" id="cancel_search">Cancel</a>
+                            <a class="btn btn-primary btn-customctv" id="enable_check">Select</a>
+                        </p>
+                    </div>
+                    <div id="file_check" style="display:none; width: 100%;">
+                        <p align="right">
+                            <a class="btn btn-default" id="cancel_file">Cancel</a>
+                            <a class="btn btn-primary btn-customctv" id="enable_model">Continue</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="step3" style="display:none;">
+                <div id="stepper" class="col-lg-6">
+                    <h2>Step 3</h2>
+                    <label id="steptwoinstructions"><b> Select compound above before continuing </b>
+                    </label>
+                    <div id="steptwo" style="display:none;">
+                        <p>Select toxicity value. 
+                        <input type="checkbox" id="Ref_dose" disabled="disabled" value="Ref_dose1">&nbsp;&nbsp; CTV Reference Dose
+                        <br>
+                        <input type="checkbox" id="NOEL" disabled="disabled" value="Ref_dose_NOEL1">&nbsp;&nbsp; CTV Reference Dose NOEL
+                        <br>
+                    </div>
+                    <div id="scompoundSubmit" style="display:none;" align="right">
+                        <p>
+							<i></i>
+                            <a class="btn btn-default" id="returnStep2s">Cancel</a>
+
+                            <button type="submit" id="Search-Data-and-Model" class="btn btn-default btn-primary">Search Data & Run Model</button>
+                        </p>
+                    </div>
+                    <div id="mcompoundSubmit" style="display:none;" align="right">
+                        <p>
+							<i>(Please allow up to 5 mins for the analysis to run)</i>
+							<a class="btn btn-default" id="returnStep2c">Cancel</a>
+                            <button type="submit" id="Runfile" class="btn btn-default btn-primary">Run</button>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+
+        </div>
+
+    </div>
+</div> 		<!== end of div id = container-fluid ==>
+
+   
+</body>
+
+</html>

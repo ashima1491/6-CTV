@@ -1,0 +1,122 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" type="text/css" href=
+	"/database_project/scripts/external/font-awesome/css/font-awesome.min.css" />
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<style>
+/* unvisited link */
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* selected link */
+a:active {
+    color: black;
+    text-decoration: none;
+}
+
+/* Highlighted_rows*/
+.Highlighted_rows{
+	background-color: lightblue;
+	border-width: 8px;
+	border-color: CornflowerBlue;
+	border-style: solid;
+	border-radius: 10px;
+	height: 50px;
+	text-align: center;
+	text-shadow:2px 2px 5px SkyBlue;
+	font-size: 14;
+	font-weight: bold;
+}
+
+</style>
+
+<body>
+
+<div id="container">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://toxvalue.org/">CTV Demo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="http://toxvalue.org/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li id="Contact"><a href="#"><span class="glyphicon glyphicon-phone-alt"></span> Contact</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+         <div style="visibility: hidden">
+			<div id="Contact_dialog" title="Contact Information">
+  				<p>For any questions or to be notified of future updates to ToxValue.org, please send an email to <a href="mailto:conditionaltoxvalue@gmail.com" target="_blank">conditionaltoxvalue@gmail.com</a>.</p>
+			</div>
+          </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<br><br><br>
+<h1 style="text-align:center; font-size: 36px;"><b>CTV <br> Conditional Toxicity Value</b></h1>
+<h2 style="text-align:center; font-size: 24px;">An <i>In Silico</i> Approach for Generating Toxicity Values for Chemicals</h2>
+<br><br><br><br><br>
+<div style = "margin:100px; font-size: 18px; text-indent: 50px; text-align: justify;">
+     Human health assessments produce qualitative toxicity values or standards by relying on epidemiological data or animal studies. Such assessments are data-, time-, and resource-intensive, and cannot be realistically expected for most environmental chemicals. The National Research Council's "Science and Decisions" report called for development of default approaches to support risk estimation for toxcicants lacking chemical-specific information. 
+     
+	<p style = "text-indent: 50px; ">
+    To address the challenge of risk management for data-poor chemicals, we developed quantitative structure-activity relationship (QSAR) models that use chemical properties to predict toxicity values.</p>
+    
+    <p style = "text-indent: 50px; ">
+	We used a comprehensive database of existing guidance values from US Federal and State agencies and developed continuous QSAR models. We created a publicly-accessible web-based tool that allows end-users to retrieve existing or calculate predicted toxicity values for the chemicals of interest.</p>
+
+	<p style = "text-indent: 50px; "> 
+	We developed reliable QSAR models for non-cancer threshold-based values and cancer slope factors with external validation-based Q2 ranging from 0.30 to 0.53. Mean model errors ranged from 0.66 to 1.0 log10 units of concentration/dose; most models can be used to calculate values from > 90% of environmental chemicals. We analyzed physico-chemical properties and structural features that were most informative to model predictions.</p>
+
+	<p style = "text-indent: 50px; "> 
+	An in silico tool that can predict a toxicity value with an error of less than a factor of 10 fills a critical gap in the current risk management paradigm. It can be used to quickly assess relative hazards of environmental exposures when toxicity data or risk assessments are unavailable.
+Toxicity models are installed in Chembench.org.
+Chemicals are to be searched in Chemspider.org for SMILES string, then the , This website is maintained by Dr. Ivan Rusyn lab at Texas A&M University.</p>
+</div><br><br><br><br><br><br>
+<div id="gradient">gradient</div>
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+	
+$("#container").css({
+    background: "-webkit-gradient(linear, left top, left bottom, from(#97d1c5), to(#19a688))" })
+
+
+});		//end of $(document).ready(function(){
+</script>
+
+
+</body>
