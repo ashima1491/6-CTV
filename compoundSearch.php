@@ -52,7 +52,7 @@ if ( ($result == null || $result="" )):
 
 
 else:
-$query=$array["queryId"];
+  $query=$array["queryId"];
 
   $url="https://api.rsc.org/compounds/v1/filter/".$query."/results";
   $curl=curl_init();
@@ -65,19 +65,18 @@ $query=$array["queryId"];
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
   //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
   $result=curl_exec($curl);
-  $result=json_decode($result, true);
-  $recordId = $result["results"][0];
-  //echo $recordId;
-  if ( ($recordId == null || $recordId="" )):
-  echo "<h4>No Information was found on $query </h4>";
+  $array=json_decode($result, true);
+
+  if ( ($result == null || $result="" )):
+      echo "<h4>No Information was found on $query </h4>";
   
   else:
+  $recordId = $array["results"][0];
+     
  
   
- // $recordId = http_build_query($recordId);
   
-  $url="https://api.rsc.org/compounds/v1/records/1906/details?fields=SMILES%2CMolecularWeight%2CCommonName";
-  //var_dump($url);
+  $url="https://api.rsc.org/compounds/v1/records/".$recordId."/details?fields=SMILES%2CMolecularWeight%2CCommonName%2CFormula";
 $curl=curl_init();
 curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
 curl_setopt($curl, CURLOPT_URL, $url);
@@ -86,16 +85,32 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array(
     'Content-Type: application/json'
 ));
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 $result=curl_exec($curl);
-echo $recordId;
-//print_r(curl_getinfo($curl));
+
 
 $result=json_decode($result, true);
-//echo $result;
 $SMILES = $result['smiles'];
 $commonName = $result['commonName'];
 $molecularWeight = $result['molecularWeight'];
+$formula = $result['formula'];
+
+#for getting Inchi####
+$inputArray = array('input' => $SMILES, 'inputFormat'=> 'SMILES', 'outputFormat'=>'InChI');
+$curl=curl_init();
+$url="https://api.rsc.org/compounds/v1/tools/convert";
+curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($inputArray));
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+    'APIKEY:' .$token,
+    'Content-Type: application/json'
+));
+$result=curl_exec($curl);
+$result=json_decode($result, true);
+$InChI = $result['output'];
+#for getting Inchi####
 
 
            echo '<div id="result" style="width: 100%;">';
@@ -121,12 +136,18 @@ $molecularWeight = $result['molecularWeight'];
 		   echo "val=$commonName";
 		   echo '>';
 		   echo "$commonName</label>";
-		   //echo "<p>InChI = $InChI </p>";
+		   echo '<p>Formula = <label id="formula"';
+		   echo "val=$formula";
+		   echo '>';
+		   echo "$formula</label>";
+		   echo '</p>';
+		   echo "<p>$InChI </p>";
+		   echo "<a href='http://www.chemspider.com/Chemical-Structure.$recordId.html' target='_blank'>Click here to see ChemSpider page for this chemical</a>";
 		   //*******Get image*********
 		  		   //*******Get image*********
 		  		   
 		   //$thearray = array('CSID' => $query, 'token' => $token);
-		   $url="https://api.rsc.org/compounds/v1/records/1906/image";
+		   $url="https://api.rsc.org/compounds/v1/records/".$recordId."/image";
 		   $curl=curl_init();
 		   curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
 		   curl_setopt($curl, CURLOPT_URL, $url);
