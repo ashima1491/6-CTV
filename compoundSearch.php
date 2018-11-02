@@ -1,10 +1,5 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-/////////////////////////////////////
-
-
-
-
 
 $query=$_POST['compoundName']; 
 $q_name = $_POST['compoundName']; 
@@ -63,7 +58,6 @@ else:
       'Content-Type: application/json'
   ));
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
   $result=curl_exec($curl);
   $array=json_decode($result, true);
 
