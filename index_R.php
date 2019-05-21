@@ -23,8 +23,8 @@
 
     <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css"><!---->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"><!-- with glyaphicons-->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"><!-- with glyaphicons-->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	
     <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
     <!-- Custom styles for this template -->
