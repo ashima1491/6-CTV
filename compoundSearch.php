@@ -11,7 +11,7 @@ $thearray = array('name' => $query);
 $curl=curl_init();
 // $url="https://api.rsc.org/compounds/v1/filter/name";
 // $url="https://actorws.epa.gov/actorws/chemIdentifier/v01/resolve.json/identifier=".$query;
-$url="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/".$query."/property/MolecularFormula,MolecularWeight,InChIKey,CanonicalSMILES/JSON";
+$url="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/".$query."/property/MolecularFormula,MolecularWeight,InChI,CanonicalSMILES,IUPACName/JSON";
 
 curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -87,7 +87,7 @@ $result=json_decode($result, true);
 //echo $result['PropertyTable']['Properties'][0]['MolecularFormula'];
 
 $SMILES = $result['PropertyTable']['Properties'][0]['CanonicalSMILES'];
-$commonName = $result['PropertyTable']['Properties'][0]['MolecularFormula'];
+$commonName = $result['PropertyTable']['Properties'][0]['IUPACName'];
 $molecularWeight = $result['PropertyTable']['Properties'][0]['MolecularWeight'];
 $formula = $result['PropertyTable']['Properties'][0]['MolecularFormula'];
 
@@ -106,7 +106,7 @@ $formula = $result['PropertyTable']['Properties'][0]['MolecularFormula'];
 // ));
 // $result=curl_exec($curl);
 // $result=json_decode($result, true);
-$InChI = $result['PropertyTable']['Properties'][0]['InChIKey'];
+$InChI = $result['PropertyTable']['Properties'][0]['InChI'];
 #for getting Inchi####
 
 
