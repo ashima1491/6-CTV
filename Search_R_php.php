@@ -113,7 +113,7 @@ echo '	<h2 style="background-color:;">Step 4<small>: Results</small></h2>';
 echo	'<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: ;">';
 		
 
-			$imageValue = $_POST['CompoundImage'];
+			$imageValue = $_POST['  '];
 echo '';// '		<div style="text-align: left;">&nbsp; &nbsp; ';
 echo '			<img src="data:image/png;base64,' . $imageValue . '" />';
 

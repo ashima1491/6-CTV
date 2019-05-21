@@ -5,19 +5,21 @@ $query=$_POST['compoundName'];
 $q_name = $_POST['compoundName']; 
 $thearray = array('name' => $query);
 
-$token="2P1NluuioKwal5EZPrRjv4PTfeUAAnsc"; // the provided password
+// $token="2P1NluuioKwal5EZPrRjv4PTfeUAAnsc"; // the provided password
 
 
 $curl=curl_init();
-$url="https://api.rsc.org/compounds/v1/filter/name";
+// $url="https://api.rsc.org/compounds/v1/filter/name";
+// $url="https://actorws.epa.gov/actorws/chemIdentifier/v01/resolve.json/identifier=".$query;
+$url="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/".$query."/property/MolecularFormula,MolecularWeight,InChIKey,CanonicalSMILES/JSON";
 
 curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($thearray));
+// curl_setopt($curl, CURLOPT_POST, 1);
+// curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($thearray));
 curl_setopt($curl, CURLOPT_URL, $url);
 curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-    'apikey: 2P1NluuioKwal5EZPrRjv4PTfeUAAnsc',
+//     'apikey: 2P1NluuioKwal5EZPrRjv4PTfeUAAnsc',
     'Content-Type: application/json'
 ));
 //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -28,82 +30,83 @@ if(curl_errno($curl)){
     echo 'Curl error: ' . curl_error($curl);
 }
 //var_dump(json_decode($result, true));
-$array=json_decode($result, true);
-//echo $array["queryId"];
+$result=json_decode($result, true);
 
-//echo" $result testing";
+//echo $result ;
 //=json_decode($result, true);
 //$data = $result['response'];
 //$result = $result['response']['queryId'];
 
 
-if ( ($result == null || $result="" )):
-	echo "<h4>No Information was found on $query </h4><pre></pre>";
-	echo '<script>';
-	echo '	$(document).ready(function(){';
-	echo '		$("#enable_check").hide();});';
-	echo '	</script>';
+// if ( ($result == null || $result="" )):
+// 	echo "<h4>No Information was found on $query </h4><pre></pre>";
+// 	echo '<script>';
+// 	echo '	$(document).ready(function(){';
+// 	echo '		$("#enable_check").hide();});';
+// 	echo '	</script>';
 
 
 
-else:
-  $query=$array["queryId"];
+// else:
+//   $query=$array["queryId"];
 
-  $url="https://api.rsc.org/compounds/v1/filter/".$query."/results";
-  $curl=curl_init();
-  curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
-  curl_setopt($curl, CURLOPT_URL, $url);
-  curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-      'APIKEY:' .$token,
-      'Content-Type: application/json'
-  ));
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  $result=curl_exec($curl);
-  $array=json_decode($result, true);
+//   $url="https://api.rsc.org/compounds/v1/filter/".$query."/results";
+//   $curl=curl_init();
+//   curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
+//   curl_setopt($curl, CURLOPT_URL, $url);
+//   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+//       'APIKEY:' .$token,
+//       'Content-Type: application/json'
+//   ));
+//   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//   $result=curl_exec($curl);
+//   $array=json_decode($result, true);
 
-  if ( ($result == null || $result="" )):
-      echo "<h4>No Information was found on $query </h4>";
+//   if ( ($result == null || $result="" )):
+//       echo "<h4>No Information was found on $query </h4>";
   
-  else:
-  $recordId = $array["results"][0];
+//   else:
+//   $recordId = $array["results"][0];
      
  
   
   
-  $url="https://api.rsc.org/compounds/v1/records/".$recordId."/details?fields=SMILES%2CMolecularWeight%2CCommonName%2CFormula";
-$curl=curl_init();
-curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-    'APIKEY:' .$token,
-    'Content-Type: application/json'
-));
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-$result=curl_exec($curl);
+//   $url="https://api.rsc.org/compounds/v1/records/".$recordId."/details?fields=SMILES%2CMolecularWeight%2CCommonName%2CFormula";
+// $curl=curl_init();
+// curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
+// curl_setopt($curl, CURLOPT_URL, $url);
+// curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+//     'APIKEY:' .$token,
+//     'Content-Type: application/json'
+// ));
+// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// $result=curl_exec($curl);
 
 
-$result=json_decode($result, true);
-$SMILES = $result['smiles'];
-$commonName = $result['commonName'];
-$molecularWeight = $result['molecularWeight'];
-$formula = $result['formula'];
+// $result=json_decode($result, true);
+//echo $result['PropertyTable']['Properties'][0]['MolecularFormula'];
+
+$SMILES = $result['PropertyTable']['Properties'][0]['CanonicalSMILES'];
+$commonName = $result['PropertyTable']['Properties'][0]['MolecularFormula'];
+$molecularWeight = $result['PropertyTable']['Properties'][0]['MolecularWeight'];
+$formula = $result['PropertyTable']['Properties'][0]['MolecularFormula'];
 
 #for getting Inchi####
-$inputArray = array('input' => $SMILES, 'inputFormat'=> 'SMILES', 'outputFormat'=>'InChI');
-$curl=curl_init();
-$url="https://api.rsc.org/compounds/v1/tools/convert";
-curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($inputArray));
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-    'APIKEY:' .$token,
-    'Content-Type: application/json'
-));
-$result=curl_exec($curl);
-$result=json_decode($result, true);
-$InChI = $result['output'];
+// $inputArray = array('input' => $SMILES, 'inputFormat'=> 'SMILES', 'outputFormat'=>'InChI');
+// $curl=curl_init();
+// $url="https://api.rsc.org/compounds/v1/tools/convert";
+// curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
+// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// curl_setopt($curl, CURLOPT_POST, 1);
+// curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($inputArray));
+// curl_setopt($curl, CURLOPT_URL, $url);
+// curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+//     'APIKEY:' .$token,
+//     'Content-Type: application/json'
+// ));
+// $result=curl_exec($curl);
+// $result=json_decode($result, true);
+$InChI = $result['PropertyTable']['Properties'][0]['InChIKey'];
 #for getting Inchi####
 
 
@@ -136,31 +139,32 @@ $InChI = $result['output'];
 		   echo "$formula</label>";
 		   echo '</p>';
 		   echo "<p>$InChI </p>";
-		   echo "<a href='http://www.chemspider.com/Chemical-Structure.$recordId.html' target='_blank'>Click here to see ChemSpider page for this chemical</a>";
+// 		   echo "<a href='http://www.chemspider.com/Chemical-Structure.$recordId.html' target='_blank'>Click here to see ChemSpider page for this chemical</a>";
 		   //*******Get image*********
 		  		   //*******Get image*********
 		  		   
 		   //$thearray = array('CSID' => $query, 'token' => $token);
-		   $url="https://api.rsc.org/compounds/v1/records/".$recordId."/image";
-		   $curl=curl_init();
-		   curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
-		   curl_setopt($curl, CURLOPT_URL, $url);
-		   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-		       'APIKEY:' .$token,
-		       'Content-Type: application/json'
-		   ));
-		   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// 		   $url="https://api.rsc.org/compounds/v1/records/".$recordId."/image";
+// 		   $curl=curl_init();
+// 		   curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
+// 		   curl_setopt($curl, CURLOPT_URL, $url);
+// 		   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+// 		       'APIKEY:' .$token,
+// 		       'Content-Type: application/json'
+// 		   ));
+// 		   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		  // curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		   $result=curl_exec($curl);
+// 		   $result=curl_exec($curl);
 		   //var_dump(json_decode($result, true));
-		   $result=json_decode($result,true);
-		   $result = $result['image'];
+// 		   $result=json_decode($result,true);
+// 		   $result = $result['image'];
 		   
 
  
          //$result = substr($result, 89);
 		 //$result = substr($result, 0, -15);
-		 $compoundImage = $result;
+		 $result=null;
+ 		 $compoundImage = $result;
          		 
 		 
 		 
@@ -168,7 +172,8 @@ $InChI = $result['output'];
    echo '</div></div>';
    echo '<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">';
    echo '<div style="margin:auto; width:200px;">';
-   echo '<img src="data:image/png;base64,' . $result . '" /><br><br><br>';
+//    echo '<img src="data:image/png;base64,' . $result . '" /><br><br><br>';
+   echo '<img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/'.$query.'/png" /><br><br><br>';
    echo '</div></div></div>';			
 		   // end of <div style="margin:auto;", div row, and class="col-lg-6 
 		   //NEW CODE
@@ -180,9 +185,9 @@ $InChI = $result['output'];
 		   //
            echo '<p></p><p></p></div>';		 
           
-endif;
+// endif;
 
-endif;
+
 
  
 

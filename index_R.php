@@ -106,7 +106,7 @@
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6 col-xsm-6" style="background-color:;">
 								<div style="width:auto; text-align:justify; background-color:;">
-									<b>Enter compound name, CASRN, or SMILES below. Compounds will be searched using <a href="http://www.chemspider.com/" target="_blank">ChemSpider.</a> Mixtures, inorganic compounds, and metallic compounds cannot be predicted by CTV.</b>
+									<b>Enter compound name, CASRN, or SMILES below. Compounds will be searched using <a href="https://pubchemdocs.ncbi.nlm.nih.gov/pug-rest$_Toc494865566" target="_blank">PubChem.</a> Mixtures, inorganic compounds, and metallic compounds cannot be predicted by CTV.</b>
 								</div><br>
 								<textarea rows="3" id="compoundNames" placeholder="Enter compound name OR SMILES OR CAS Registry Number." style="width: 100%; "></textarea>
                                 <br><br> 
@@ -223,7 +223,7 @@
                 
                  <br>
                         This information was obtained from 
-                        	<a href="http://chemspider.com" target="_blank">ChemSpider</a> on 
+                        	<a href="https://pubchemdocs.ncbi.nlm.nih.gov/about" target="_blank">PubChem</a> on 
                             
                             
                             <script>
