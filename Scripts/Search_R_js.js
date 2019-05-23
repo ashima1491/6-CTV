@@ -5,11 +5,13 @@ $(document).ready(function() {
         $('#result').hide();
         $('#select_check').hide();
 		$('#spinner').show();
+		//alert ($('#search').text());
 		seconds_elapse();
 		$.post("Search_R_php.php", {
             compoundName: $('#compoundNamer').text(),
             submitValue: $('#submission').text(),
             MolWeight: $('#Molecularweight').text(),
+            searchType: $('#search').text(),
 					
 			refDose: $('#Ref_dose').is(":checked"),
 			noel: $('#NOEL').is(":checked"),

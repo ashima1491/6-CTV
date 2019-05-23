@@ -3,6 +3,9 @@ header("Access-Control-Allow-Origin: *");
 
 $query=$_POST['compoundName']; 
 $search= $_POST['searchType'];
+
+
+
 $curl=curl_init();
  
  if($search=='name' || $search=='cas')
@@ -63,6 +66,13 @@ echo 'Common name = <label id="compoundNamer"';
 echo "val=$commonName";
 echo '>';
 echo "$commonName</label>";
+
+echo '<label id="search" style="display:none"';
+echo "val=$search";
+echo '>';
+echo "$search</label>";
+
+
 echo '<p>Formula = <label id="formula"';
 echo "val=$formula";
 echo '>';
