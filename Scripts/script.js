@@ -7,10 +7,13 @@ $(document).ready(
             $('#result').hide();
             $('#spinner').show();
 			$('#step2').show();
+			var radioValue = $("input[name='inlineRadioOptions']:checked").val();
+			//alert(radioValue);
 			// alert("here...7");
             $.post("compoundSearch.php", {
 			// $.post("cookie.txt", {
-                compoundName: $('#compoundNames').val()
+                compoundName: $('#compoundNames').val(),
+                searchType: radioValue
                 },
                 function(data) {
 					// alert("got data: " + data);

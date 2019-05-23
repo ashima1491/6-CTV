@@ -14,6 +14,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 $search_var=$_POST['compoundName'];  //Retrieve compound name from user
 $mol_Weight =$_POST['MolWeight']; //Retrieve molecular weight
+$search= $_POST['searchType'];
 
 
 
@@ -116,11 +117,24 @@ echo	'<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: 
 			$imageValue = $_POST['  '];
 echo '';// '		<div style="text-align: left;">&nbsp; &nbsp; ';
 // echo '			<img src="data:image/png;base64,' . $imageValue . '" />';
-echo '<img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/'.$search_var.'/png" />';
+
+if($search=='name' || $search=='cas')
+{
+    echo '<img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/'.$search_var.'/png" />';
+    
+}
+
+elseif ($search=='smiles')
+{
+    echo '<img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/SMILES/'.$search_var.'/png" />';
+    
+}
+
 
 		
 echo '		</div>';	// end first div in row.
-echo '	<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="background-color:;"><br><br><br>';
+echo '	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>';
+echo '	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="background-color:;"><br><br><br>';
 
 echo "		<p><b>Common Name: $search_var </b></p>";
 echo '		<ul id="legend_ul" class="legend" style="display: '. $display_status. ';">';
