@@ -11,12 +11,14 @@ $curl=curl_init();
  if($search=='name' || $search=='cas')
  {
      $url="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/".$query."/property/MolecularFormula,MolecularWeight,InChI,CanonicalSMILES,IUPACName/JSON";
+     $urlcid="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/".$query."/cids/JSON";
      
  }
 
  elseif ($search=='smiles')
  {
      $url="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/SMILES/".$query."/property/MolecularFormula,MolecularWeight,InChI,CanonicalSMILES,IUPACName/JSON";
+     $urlcid="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/SMILES/".$query."/cids/JSON";
      
  }
  
@@ -37,10 +39,27 @@ $SMILES = $result['PropertyTable']['Properties'][0]['CanonicalSMILES'];
 $commonName = $result['PropertyTable']['Properties'][0]['IUPACName'];
 $molecularWeight = $result['PropertyTable']['Properties'][0]['MolecularWeight'];
 $formula = $result['PropertyTable']['Properties'][0]['MolecularFormula'];
-
-
 $InChI = $result['PropertyTable']['Properties'][0]['InChI'];
-#for getting Inchi####
+#for getting cid####
+
+
+
+curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_URL, $urlcid);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json'
+));
+
+$result=curl_exec($curl);
+if(curl_errno($curl)){
+    echo 'Curl error: ' . curl_error($curl);
+}
+//var_dump(json_decode($result, true));
+$result=json_decode($result, true);
+$cid = $result['IdentifierList']['CID'][0];
+// echo $cid;
+
 
 
 echo '<div id="result" style="width: 100%;">';
@@ -62,7 +81,7 @@ echo "val=$molecularWeight";
 echo '>';
 echo "$molecularWeight</label>";
 echo '</p>';
-echo 'Common name = <label id="compoundNamer"';
+echo 'IUPAC name = <label id="compoundNamer"';
 echo "val=$commonName";
 echo '>';
 echo "$commonName</label>";
@@ -79,8 +98,31 @@ echo '>';
 echo "$formula</label>";
 echo '</p>';
 echo "<p>$InChI </p>";
+echo "<p> List of Synonyms = </p>";
+
+$urlsyn="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/".$cid."/synonyms/json";
+curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_URL, $urlsyn);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json'
+));
+
+$result=curl_exec($curl);
+if(curl_errno($curl)){
+    echo 'Curl error: ' . curl_error($curl);
+}
+//var_dump(json_decode($result, true));
+$result=json_decode($result, true);
+// echo '<b>'.$result['InformationList']['Information'][0]['Synonym'][0].'</b>';
+// echo '<br><b>'.$result['InformationList']['Information'][0]['Synonym'][1].'</b>';
+for ($x = 0; $x <= 9; $x++) {
+    echo '<b>'.$result['InformationList']['Information'][0]['Synonym'][$x].'</b><br>';
+} 
 
 
+
+echo '<br><br><a href="https://pubchem.ncbi.nlm.nih.gov/compound/'.$cid.'" target="_blank" > Link to PubChem Entry</a>';
 
 
 

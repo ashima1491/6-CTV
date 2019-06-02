@@ -126,7 +126,7 @@ if($search=='name' || $search=='cas')
 
 elseif ($search=='smiles')
 {
-    echo '<img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/SMILES/'.$search_var.'/png" />';
+    echo '<img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/'.$search_var.'/png" />';
     
 }
 
