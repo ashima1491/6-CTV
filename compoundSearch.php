@@ -36,7 +36,7 @@ if(curl_errno($curl)){
 //var_dump(json_decode($result, true));
 $result=json_decode($result, true);
 $SMILES = $result['PropertyTable']['Properties'][0]['CanonicalSMILES'];
-$commonName = $result['PropertyTable']['Properties'][0]['IUPACName'];
+$iupacName = $result['PropertyTable']['Properties'][0]['IUPACName'];
 $molecularWeight = $result['PropertyTable']['Properties'][0]['MolecularWeight'];
 $formula = $result['PropertyTable']['Properties'][0]['MolecularFormula'];
 $InChI = $result['PropertyTable']['Properties'][0]['InChI'];
@@ -82,9 +82,9 @@ echo '>';
 echo "$molecularWeight</label>";
 echo '</p>';
 echo 'IUPAC name = <label id="compoundNamer"';
-echo "val=$commonName";
+echo "val=$iupacName";
 echo '>';
-echo "$commonName</label>";
+echo "$iupacName</label>";
 
 echo '<label id="search" style="display:none"';
 echo "val=$search";
@@ -98,7 +98,6 @@ echo '>';
 echo "$formula</label>";
 echo '</p>';
 echo "<p>$InChI </p>";
-echo "<p> List of Synonyms = </p>";
 
 $urlsyn="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/".$cid."/synonyms/json";
 curl_setopt($curl,  CURLOPT_SSL_VERIFYPEER , false);
@@ -116,6 +115,16 @@ if(curl_errno($curl)){
 $result=json_decode($result, true);
 // echo '<b>'.$result['InformationList']['Information'][0]['Synonym'][0].'</b>';
 // echo '<br><b>'.$result['InformationList']['Information'][0]['Synonym'][1].'</b>';
+$commonName=$result['InformationList']['Information'][0]['Synonym'][0];
+
+echo '<p>Common Name = <label id="commonName"';
+echo "val=$commonName";
+echo '>';
+echo "$commonName</label>";
+echo '</p>';
+
+echo "<p> List of Synonyms = </p>";
+
 for ($x = 0; $x <= 9; $x++) {
     echo '<b>'.$result['InformationList']['Information'][0]['Synonym'][$x].'</b><br>';
 } 
