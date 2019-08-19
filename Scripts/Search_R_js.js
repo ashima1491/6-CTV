@@ -8,7 +8,8 @@ $(document).ready(function() {
 		//alert ($('#search').text());
 		seconds_elapse();
 		$.post("Search_R_php.php", {
-            compoundName: $('#commonName').text(),
+			compoundName: $('#commonName').text(),
+            commonName: $('#commonName').text(),
             submitValue: $('#submission').text(),
             MolWeight: $('#Molecularweight').text(),
             searchType: $('#search').text(),
